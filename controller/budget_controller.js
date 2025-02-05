@@ -162,7 +162,7 @@ exports.getAllBudget = async (req, res) => {
     // Récupérer tous les budgets de l'utilisateur avec les dépenses associées
     const budgets = await Budget.find({ userId: userId })
         .populate('depense') // Assurez-vous que 'expenses' est la référence correcte
-        .sort({ budget_date: 1 });
+        .sort({ budget_date: -1 });
 
     if (!budgets.length) {
         return res.status(404).json({
