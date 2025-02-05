@@ -19,8 +19,9 @@ const mongoose = require("mongoose");
 // Schéma pour les catégories
 const categorieSchema = new mongoose.Schema({
     userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User', // Relation avec User
+        type: String,
+        // mongoose.Schema.Types.ObjectId,
+        // ref: 'User', // Relation avec User
         required: false // nullable
     },
     name_categories: {
