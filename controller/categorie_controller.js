@@ -1,5 +1,5 @@
 const Categories = require("../models/categories_model");
-
+const mongoose = require('mongoose')
 // Ajouter une catégorie
 exports.createCategory = async (req, res) => {
   try {
@@ -33,9 +33,7 @@ exports.getCategories = async (req, res) => {
     const userId = req.params.userId;
 
     // Exécuter la requête
-    const categories = await Categories.find({
-        $or: [{ userId: userId }, { userId: "default" }]
-    })
+    const categories = await Categories.find()
         .sort({ name_categories: 1 });
 
     return res.status(200).json({
