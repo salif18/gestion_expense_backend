@@ -33,7 +33,9 @@ exports.getCategories = async (req, res) => {
     const userId = req.params.userId;
 
     // Exécuter la requête
-    const categories = await Categories.find({userId})
+    const categories = await Categories.find({
+        $or: [{ userId: userId }, { userId: "default" }]
+    })
         .sort({ name_categories: 1 });
 
     return res.status(200).json({
