@@ -270,6 +270,39 @@ exports.mostCategoriExpenses = async (req, res) => {
     }
 };
 
+exports.getExpensesByYear= async (req,res) =>{
+    try {
+        const userId = req.params.userId;
+        const currentYear = new Date().getFullYear();
+
+        // Récupère les dépenses de l'utilisateur pour l'année en cours
+        const expenses = await Expense.find({
+            userId: new mongoose.Types.ObjectId(userId),
+            date_expenses: {
+                $gte: new Date(`${currentYear}-01-01`),
+                $lt: new Date(`${currentYear + 1}-01-01`),
+            },
+        });
+
+        // Calcule la somme totale des dépenses pour l'année en cours
+        const totalExpenses = expenses.reduce((sum, expense) => sum + expense.amount, 0);
+
+        // Retourne les données en réponse JSON
+        res.status(200).json({
+            status: true,
+            year: currentYear,
+            totalExpenses: totalExpenses,
+        });
+
+    } catch (error) {
+        // Gestion des erreurs
+        res.status(500).json({
+            status: false,
+            message: 'Une erreur s\'est produite lors de la récupération des dépenses.',
+            errors: error.message,
+        });
+    }
+}
 // Toutes les dépenses par année
 exports.getAllExpensesForYear = async (req, res) => {
     try {
