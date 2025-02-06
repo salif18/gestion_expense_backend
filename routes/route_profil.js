@@ -5,7 +5,7 @@ const Profil_Controller = require("../controller/profil_controller");
 const middleware = require("../middlewares/AuthMiddleware");
 
 
-Router.post("/update/:userId",middleware,Profil_Controller.updateProfil);
+Router.post("/update/:userId",Profil_Controller.updateProfil);
 
 
 module.exports = Router;
